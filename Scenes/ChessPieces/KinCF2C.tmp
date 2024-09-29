@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=3 uid="uid://tlbgvuuqlvym"]
+
+[ext_resource type="PackedScene" uid="uid://dcm6ojnsaydo7" path="res://Scenes/ChessPieces/ChessPiece.tscn" id="1_xwweg"]
+[ext_resource type="Script" path="res://Scripts/ChessPieces/King.gd" id="2_264bw"]
+[ext_resource type="Texture2D" uid="uid://0bqdacixp34a" path="res://Sprites/king1.png" id="2_jmntq"]
+
+[node name="ChessPiece" instance=ExtResource("1_xwweg")]
+script = ExtResource("2_264bw")
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_jmntq")

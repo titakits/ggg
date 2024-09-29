@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://byhytd1nesyei"]
+
+[ext_resource type="Script" path="res://Scripts/ChessPieces/ChessPiece.gd" id="1_h0gjb"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_k1s5o"]
+radius = 2.37691
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1nhrc"]
+size = Vector2(14.3495, 20)
+
+[node name="ChessPiece" type="Node2D"]
+script = ExtResource("1_h0gjb")
+
+[node name="Area2D" type="Area2D" parent="."]
+scale = Vector2(5.9696, 3.64)
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CapsuleShape2D_k1s5o")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+scale = Vector2(7.5264, 6.12)
+shape = SubResource("RectangleShape2D_1nhrc")

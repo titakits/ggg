@@ -1,0 +1,73 @@
+[gd_scene load_steps=5 format=3 uid="uid://dvx1imitof0cu"]
+
+[ext_resource type="Script" path="res://Scripts/field.gd" id="1_p3028"]
+[ext_resource type="PackedScene" uid="uid://b6xcwij3lq36" path="res://Scenes/platform.tscn" id="1_spcet"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p7t5g"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gsfba"]
+
+[node name="field" type="Node2D"]
+script = ExtResource("1_p3028")
+
+[node name="Platform0" parent="." instance=ExtResource("1_spcet")]
+position = Vector2(0, 0)
+
+[node name="Platform1" parent="." instance=ExtResource("1_spcet")]
+position = Vector2(0, -338)
+
+[node name="Platform2" parent="." instance=ExtResource("1_spcet")]
+position = Vector2(400, -169)
+
+[node name="Platform3" parent="." instance=ExtResource("1_spcet")]
+position = Vector2(720, 0)
+
+[node name="Platform4" parent="." instance=ExtResource("1_spcet")]
+position = Vector2(400, 169)
+
+[node name="Platform5" parent="." instance=ExtResource("1_spcet")]
+z_index = 1
+position = Vector2(2, 338)
+
+[node name="Platform6" parent="." instance=ExtResource("1_spcet")]
+position = Vector2(-400, 169)
+
+[node name="Platform7" parent="." instance=ExtResource("1_spcet")]
+position = Vector2(-720, 0)
+
+[node name="Platform8" parent="." instance=ExtResource("1_spcet")]
+position = Vector2(-400, -169)
+
+[node name="LeftBarrier" type="StaticBody2D" parent="."]
+position = Vector2(-1100, 0)
+scale = Vector2(1, 70)
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftBarrier"]
+shape = SubResource("RectangleShape2D_p7t5g")
+
+[node name="RightBarrier" type="StaticBody2D" parent="."]
+position = Vector2(1100, 0)
+scale = Vector2(1, 70)
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightBarrier"]
+shape = SubResource("RectangleShape2D_p7t5g")
+
+[node name="BottomBarrier" type="StaticBody2D" parent="."]
+position = Vector2(0, 653)
+scale = Vector2(120, 1)
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BottomBarrier"]
+shape = SubResource("RectangleShape2D_p7t5g")
+
+[node name="BottomTeleportArea" type="Area2D" parent="."]
+position = Vector2(0, 630)
+scale = Vector2(109.96, 1)
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BottomTeleportArea"]
+shape = SubResource("RectangleShape2D_gsfba")
+
+[connection signal="body_entered" from="BottomTeleportArea" to="." method="_on_BottomTeleportArea_body_entered"]

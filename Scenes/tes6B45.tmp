@@ -1,0 +1,48 @@
+[gd_scene load_steps=9 format=3 uid="uid://18q7hhb88fvl"]
+
+[ext_resource type="PackedScene" uid="uid://dgra8m6pq4q5u" path="res://Scenes/player.tscn" id="1_cl2ou"]
+[ext_resource type="Script" path="res://Scenes/game.gd" id="1_lwlmv"]
+[ext_resource type="PackedScene" uid="uid://dvq7w3pp0lpxp" path="res://Scenes/coin.tscn" id="2_iug47"]
+[ext_resource type="Texture2D" uid="uid://0bqdacixp34a" path="res://Sprites/king1.png" id="4_tx4ky"]
+[ext_resource type="PackedScene" uid="uid://jeyax75l36o5" path="res://Scenes/board.tscn" id="5_5ijxy"]
+[ext_resource type="Texture2D" uid="uid://cmwrd262ehs6o" path="res://Sprites/podest.png" id="5_46a8c"]
+[ext_resource type="PackedScene" uid="uid://bgt60e6grge0v" path="res://Scenes/killzone.tscn" id="6_t8iwx"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_xx18d"]
+
+[node name="Test" type="Node2D"]
+script = ExtResource("1_lwlmv")
+
+[node name="Player" parent="." instance=ExtResource("1_cl2ou")]
+z_index = 5
+position = Vector2(-2, -10)
+
+[node name="PlayerCamera" type="Camera2D" parent="Player"]
+position = Vector2(2, 10)
+limit_smoothed = true
+position_smoothing_enabled = true
+
+[node name="coin" parent="." instance=ExtResource("2_iug47")]
+position = Vector2(146, -38)
+
+[node name="King1" type="Sprite2D" parent="."]
+z_index = 1
+position = Vector2(-1, -173)
+texture = ExtResource("4_tx4ky")
+
+[node name="Podest" type="Sprite2D" parent="."]
+position = Vector2(0, -39)
+texture = ExtResource("5_46a8c")
+
+[node name="Board" parent="." instance=ExtResource("5_5ijxy")]
+position = Vector2(0, 71)
+
+[node name="BoardCamera" type="Camera2D" parent="Board"]
+position = Vector2(6279, 3438)
+zoom = Vector2(0.08, 0.08)
+
+[node name="killzone" parent="." instance=ExtResource("6_t8iwx")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="killzone"]
+position = Vector2(0, 424)
+shape = SubResource("WorldBoundaryShape2D_xx18d")
