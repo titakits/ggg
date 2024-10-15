@@ -1,48 +1,37 @@
 extends StaticBody2D
 
-# Instance variables
 var target_field_name = ""
+var parent_field_name = "" 
 var player_in_area = false
-var parent_field_name = ""  # Declare parent_field_name at the class level
 
 func _ready():
-	# Defer setup until the node is fully added to the scene tree
 	call_deferred("_setup_platform")
 
 func _setup_platform():
-	# Find the board node dynamically
-	var board = find_board_node()
-	if board == null:
-		return
-
-	# Set up the target field based on the platform's position
-	parent_field_name = get_parent().name  # Assign to instance variable
-	var field_coords = parent_field_name.split("_")
-	if field_coords.size() != 3:
-		return
-
-	var x = int(field_coords[1])
-	var y = int(field_coords[2])
-
+	var board = get_parent().get_parent().get_parent().get_node("Board")
+	parent_field_name = get_parent().name
+	var field_coords = board.get_field_coordinates(parent_field_name)
+	var x = field_coords.x
+	var y = field_coords.y
 	match name:
-		"Platform0":  # Central platform, no teleport
-			target_field_name = ""
+		"Platform0":
+			target_field_name = ""  # No teleport
 		"Platform1":  # Top
-			target_field_name = "Field_%d_%d" % [x, y-1]
+			target_field_name = try_get_field_name(board, x, y - 1)
 		"Platform2":  # Top-right
-			target_field_name = "Field_%d_%d" % [x+1, y-1]
+			target_field_name = try_get_field_name(board, x + 1, y - 1)
 		"Platform3":  # Right
-			target_field_name = "Field_%d_%d" % [x+1, y]
+			target_field_name = try_get_field_name(board, x + 1, y)
 		"Platform4":  # Bottom-right
-			target_field_name = "Field_%d_%d" % [x+1, y+1]
+			target_field_name = try_get_field_name(board, x + 1, y + 1)
 		"Platform5":  # Bottom
-			target_field_name = "Field_%d_%d" % [x, y+1]
+			target_field_name = try_get_field_name(board, x, y + 1)
 		"Platform6":  # Bottom-left
-			target_field_name = "Field_%d_%d" % [x-1, y+1]
+			target_field_name = try_get_field_name(board, x - 1, y + 1)
 		"Platform7":  # Left
-			target_field_name = "Field_%d_%d" % [x-1, y]
+			target_field_name = try_get_field_name(board, x - 1, y)
 		"Platform8":  # Top-left
-			target_field_name = "Field_%d_%d" % [x-1, y-1]
+			target_field_name = try_get_field_name(board, x - 1, y - 1)
 
 	if name != "Platform0" and (target_field_name == "" or not board.has_node(target_field_name)):
 		queue_free()
@@ -52,13 +41,10 @@ func _setup_platform():
 			area.connect("body_entered", Callable(self, "_on_Area2D_body_entered"))
 			area.connect("body_exited", Callable(self, "_on_Area2D_body_exited"))
 
-func find_board_node():
-	var current = self
-	while current:
-		if current.has_node("Board"):
-			return current.get_node("Board")
-		current = current.get_parent()
-	return null
+func try_get_field_name(board, x, y):
+	if x < 0 or x >= 8 or y < 0 or y >= 8:
+		return ""
+	return board.get_field_name(x, y)
 
 func _on_Area2D_body_entered(body):
 	if body.name == "Player":

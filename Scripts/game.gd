@@ -15,7 +15,7 @@ func _ready():
 
 func _process(_delta):
 	if Input.is_action_just_pressed(TOGGLE_CAMERA_KEY):
-		toggle_camera()
+		toggle_camera() 
 
 func toggle_camera():
 	using_board_camera = !using_board_camera

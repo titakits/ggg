@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://18q7hhb88fvl"]
+[gd_scene load_steps=7 format=3 uid="uid://18q7hhb88fvl"]
 
 [ext_resource type="PackedScene" uid="uid://dgra8m6pq4q5u" path="res://Scenes/player.tscn" id="1_cl2ou"]
 [ext_resource type="Script" path="res://Scripts/game.gd" id="1_lwlmv"]
 [ext_resource type="PackedScene" uid="uid://dvq7w3pp0lpxp" path="res://Scenes/coin.tscn" id="2_iug47"]
 [ext_resource type="PackedScene" uid="uid://jeyax75l36o5" path="res://Scenes/board.tscn" id="5_5ijxy"]
 [ext_resource type="PackedScene" uid="uid://c78kmybbxn01p" path="res://Scenes/ChessPieces/King.tscn" id="5_130oo"]
+[ext_resource type="Script" path="res://Scripts/print.gd" id="6_afy8b"]
 
 [node name="Test" type="Node2D"]
 script = ExtResource("1_lwlmv")
@@ -23,9 +24,13 @@ piece_spawns = {
 "A5": ExtResource("5_130oo"),
 "A7": ExtResource("5_130oo"),
 "A8": ExtResource("5_130oo"),
-"B5": ExtResource("5_130oo")
+"B5": ExtResource("5_130oo"),
+"H5": ExtResource("5_130oo")
 }
 
 [node name="BoardCamera" type="Camera2D" parent="Board"]
 position = Vector2(7049, 3777)
 zoom = Vector2(0.08, 0.08)
+
+[node name="Node2D" type="Node2D" parent="."]
+script = ExtResource("6_afy8b")

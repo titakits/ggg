@@ -17,7 +17,6 @@ func _ready():
 	#timer.wait_time = 1.0  # Set the timer to 1 second
 	#timer.connect("timeout", Callable(self, "_on_Timer_timeout"))
 	#timer.start()
-
  
 func _on_area_2d_body_entered(body: Node2D):
 	if body is StaticBody2D:
@@ -25,8 +24,7 @@ func _on_area_2d_body_entered(body: Node2D):
 		if parent_piece.get_class() == "Node2D" and parent_piece.has_method("move_to"):
 			if parent_piece != selected_chess_piece:
 				nearby_chess_piece = parent_piece
-		
-			
+
 func _on_area_2d_body_exited(body: Node2D):
 	if body is StaticBody2D:
 		var parent_piece = body.get_parent()
@@ -36,21 +34,18 @@ func _on_area_2d_body_exited(body: Node2D):
 func select_chess_piece():
 	if nearby_chess_piece:
 		selected_chess_piece = nearby_chess_piece
-		selected_chess_piece.set_FIELD_SIZE(board.FIELD_SIZE)
 		selected_chess_piece.is_selected = true
-		selected_chess_piece.follow_target = player  # Make the piece follow the player
-		selected_chess_piece.initial_position = selected_chess_piece.global_position  # Store the initial position
+		selected_chess_piece.follow_target = player
+		selected_chess_piece.initial_position = selected_chess_piece.global_position  
 		nearby_chess_piece = null
-		
-		
+
 func move_chess_piece(current_platform):
-	if current_platform and selected_chess_piece:
+	if current_platform and selected_chess_piece and current_platform.target_field_name == "":
 		var target_position = current_platform.global_position
-		var move_valid = selected_chess_piece.is_valid_move(target_position, board)
-		print("valid move: ", move_valid)
+		var move_valid = selected_chess_piece.is_valid_move(target_position)
 		if move_valid:
 			selected_chess_piece.global_position = current_platform.global_position
 			selected_chess_piece.is_selected = false
 			selected_chess_piece.follow_target = null
-			selected_chess_piece.enable_collision()
 			selected_chess_piece = null
+			#reparent chesspiece to new field

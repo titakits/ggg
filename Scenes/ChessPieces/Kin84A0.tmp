@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://c78kmybbxn01p"]
+
+[ext_resource type="PackedScene" uid="uid://byhytd1nesyei" path="res://Scenes/ChessPieces/ChessPiece.tscn" id="1_xwweg"]
+[ext_resource type="Script" path="res://Scripts/ChessPieces/King.gd" id="2_264bw"]
+[ext_resource type="Texture2D" uid="uid://0bqdacixp34a" path="res://Sprites/king1.png" id="2_jmntq"]
+
+[node name="King" instance=ExtResource("1_xwweg")]
+script = ExtResource("2_264bw")
+possible_moves = Array[Vector2]([Vector2(7, 7), Vector2(7, 0), Vector2(0, 7), Vector2(-7, -7), Vector2(-7, 0), Vector2(0, -7), Vector2(-7, 7), Vector2(7, -7)])
+jump_moves = null
+can_jump_flag = null
+is_white = null
+
+[node name="CollisionShape2D" parent="Area2D" index="0"]
+position = Vector2(0, -14.8352)
+scale = Vector2(5.28571, 2.5)
+
+[node name="Sprite2D" parent="." index="1"]
+position = Vector2(0, -123)
+texture = ExtResource("2_jmntq")

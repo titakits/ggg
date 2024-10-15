@@ -5,7 +5,6 @@ func _ready():
 	var callable = Callable(self, "_on_BottomTeleportArea_body_entered")
 	if not $BottomTeleportArea.is_connected("body_entered", callable):
 		$BottomTeleportArea.connect("body_entered", callable)
-		
 
 func _on_BottomTeleportArea_body_entered(body):
 	if body.name == "Player":
